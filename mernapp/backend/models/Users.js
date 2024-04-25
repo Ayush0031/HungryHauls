@@ -20,7 +20,7 @@ const UserSchema=new Schema({
     },
     date:{
         type:Date,
-        dafault:Date.now
+        default:Date.now()
     }
 });
 module.exports=mongoose.model("user",UserSchema)
