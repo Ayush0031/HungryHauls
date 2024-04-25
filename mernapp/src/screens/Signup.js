@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-
+import { Link,useNavigate } from 'react-router-dom'
 const Signup = () => {
+    let navigate=useNavigate()
     const[credentials,setCredentials]=useState({name:"",email:"",password:"",geolocation:""})
     
     let style={
@@ -22,6 +22,9 @@ const Signup = () => {
         if(!json.success){
             alert("Please enter valid Credentials")
         }
+        else{
+            navigate('/login')
+        }
         setCredentials({name:"",email:"",password:"",geolocation:""})
     }
     const onChange=(e)=>{
@@ -32,7 +35,7 @@ const Signup = () => {
         <div className='container sm'>
             <form onSubmit={handleSubmit}>
             
-                <img className="responsive center" src='./logo_hh.png' height={200} />
+                <img className="responsive center" alt="" src='./logo_hh.png' height={200} />
                 
                 <div className="mb-3">
                     <label htmlFor="name" className="form-label">Name</label>

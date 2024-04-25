@@ -25,6 +25,8 @@ const Login = () => {
             alert("Please enter valid Credentials")
         }
         if(json.success){
+          localStorage.setItem("authToken",json.authToken)
+          console.log(localStorage.getItem("authToken"))
           navigate("/")
       }
         setCredentials({email:"",password:""})
@@ -37,7 +39,7 @@ const Login = () => {
         <div className='container sm'>
             <form onSubmit={handleSubmit}>
             
-                <img className="responsive center" src='./logo_hh.png' height={200} />
+                <img className="responsive center" alt=" "src='./logo_hh.png' height={200} />
                 
                 
                 <div className="mb-3">
