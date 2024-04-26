@@ -2,6 +2,7 @@ import React from 'react';
 import {Link,useNavigate} from 'react-router-dom';
 import { PiShoppingCartLight } from "react-icons/pi";
 import { RiLogoutCircleRFill } from "react-icons/ri";
+import Badge from "react-bootstrap/Badge";
 export default function Navbar() {
   let style={
             

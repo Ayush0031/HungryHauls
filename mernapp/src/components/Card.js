@@ -1,8 +1,21 @@
-import React from 'react'
-
+import React, { useState,useRef, useEffect } from 'react'
+import { useDispatch,useCart } from './ContextReducer';
 const Card = (props) => {
-  let options=props.data.options[0];
+  let dispatch=useDispatch();
+  let cartItems=useCart();
+  let options=props.options;
   let priceOptions=Object.keys(options);
+  const[qty,setQty]=useState(1);
+  const[size,setSize]=useState("");
+  const priceRef=useRef();
+  const handleAddToCart=async ()=>{
+      await dispatch({type:"ADD",id:props.data._id,name:props.data.name,price:finalPrice,qty:qty,size:size})
+      console.log(cartItems);
+  }
+  let finalPrice=qty*parseInt(options[size]);
+  useEffect(()=>{
+    setSize(priceRef.current.value)
+  },[])
   return (
     <div>
       <div
@@ -12,11 +25,11 @@ const Card = (props) => {
           <img className="card-img-top" style={{ height: "120px", objectFit: "fill" }} src={props.data.img} alt="..." />
           <div className="card-body">
             <h5 className="card-title">{props.data.name}</h5>
-            <p className="card-text">{props.data.description}</p>
+            {/* <p className="card-text">{props.data.description}</p> */}
             <div className="container w-100">
               <select
                 className="m-2 h-100 rounded "
-                style={{ backgroundColor: "#6e60dd" }}
+                style={{ backgroundColor: "#6e60dd" }}  onChange={(e)=>{setQty(e.target.value)}}
               >
                 {Array.from(Array(6), (e, i) => {
                   return (
@@ -29,7 +42,7 @@ const Card = (props) => {
               
               <select
                 className="m-2 h-100 rounded "
-                style={{ backgroundColor: "#6e60dd" }}
+                style={{ backgroundColor: "#6e60dd" }} ref={priceRef} onChange={(e)=>{setSize(e.target.value)}}
               >
                 {
                   priceOptions.map((data)=>{
@@ -37,7 +50,9 @@ const Card = (props) => {
                   })
                 }
               </select>
-              <div className="d-inline h-100 fs-5">Total Price</div>
+              <div className="d-inline h-100 fs-5"> ₹{finalPrice}/-</div>
+              <hr></hr>
+              <button className={'btn btn-success justify-content mb-6'} onClick={handleAddToCart}>Add to Cart</button>
             </div>
           </div>
         </div>
