@@ -23,6 +23,10 @@ export default function Home() {
   useEffect(() => {
     loadData();
   }, []);
+  let style={
+            
+    backgroundColor: "#6e60dd"
+}
   return (
     <div>
       <div>
@@ -59,15 +63,15 @@ export default function Home() {
       </div>
       <div className="container">
         {/* Logic to display data in cards based on category #9 35m */}
-        {foodCat != []
+        {foodCat !== []
           ? foodCat.map((data) => {
             return (
               <div className="row mb-3">
-                <div key={data._id} className="fs-3 fst-italic">
+                <div key={data._id} className="fs-3 fst-italic m-3 text-center col" style={style}>
                   {data.CategoryName}
                 </div>
                 <hr />
-                {foodItem != []
+                {foodItem !== []
                   ? foodItem
                     .filter(
                       (item) => (item.CategoryName === data.CategoryName) 
