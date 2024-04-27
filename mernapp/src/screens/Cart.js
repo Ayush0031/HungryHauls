@@ -19,7 +19,7 @@ export default function Cart() {
   const handleCheckOut = async () => {
     let userEmail = localStorage.getItem("userEmail");
     // console.log(data,localStorage.getItem("userEmail"),new Date())
-    let response = await fetch("http://localhost:5000/api/auth/orderData", {
+    let response = await fetch("http://localhost:5000/api/orderData", {
       // credentials: 'include',
       // Origin:"http://localhost:3000/login",
       method: 'POST',
@@ -32,10 +32,10 @@ export default function Cart() {
         order_date: new Date().toDateString()
       })
     });
-//     console.log("JSON RESPONSE:::::", response.status)
-//     if (response.status === 200) {
-//       dispatch({ type: "DROP" })
-//     }
+    console.log("JSON RESPONSE:::::", response.status)
+    if (response.status === 200) {
+      dispatch({ type: "DROP" })
+    }
  }
 
   let totalPrice = data.reduce((total, food) => total + food.price, 0)
