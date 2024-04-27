@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {Link,useNavigate} from 'react-router-dom';
 import { PiShoppingCartLight } from "react-icons/pi";
 import { RiLogoutCircleRFill } from "react-icons/ri";
 import Badge from "react-bootstrap/Badge";
+import Modal from '../Modal';
+import Card from './Card';
+import Cart from '../screens/Cart';
+import { useCart } from './ContextReducer';
 export default function Navbar() {
+  let data = useCart();
+  const[cartView,setCartView]=  useState(false);
   let style={
             
             backgroundColor: "#6e60dd"
@@ -13,6 +19,7 @@ export default function Navbar() {
     localStorage.removeItem("authToken")
       navigate("/")
   }
+ 
   return (
     <div>
       
@@ -48,7 +55,11 @@ export default function Navbar() {
           </div>
           :
           <div>
-          <div className='btn fs-2  mx-2'><PiShoppingCartLight /></div>
+          <div className='btn fs-2  mx-2' onClick={()=>setCartView(true)}>
+            
+            <Badge pill bg="danger"><PiShoppingCartLight />{data.length}</Badge>
+            </div>
+            {cartView?<Modal onClose={()=>setCartView(false)}><Cart></Cart></Modal>:""}
           <div className='btn mx-2 fs-5' onClick={handleLogout}> Logout <RiLogoutCircleRFill /></div>
           </div>
         }
