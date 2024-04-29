@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link,useNavigate } from 'react-router-dom'
+import Navbar from '../components/Navbar'
 
 
 const Login = () => {
@@ -36,29 +37,32 @@ const Login = () => {
         setCredentials({...credentials,[e.target.name]:e.target.value})
     }
   return (
-    <>
-        <div className='container sm'>
-            <form onSubmit={handleSubmit}>
-            
-                <img className="responsive center" alt=" "src='./logo_hh.png' height={200} />
+    <div style={{backgroundImage:'url("https://img.freepik.com/free-photo/junk-food-black-slate-with-copy-space_23-2148273109.jpg?size=626&ext=jpg")', height: '100vh', backgroundSize: 'cover' }}>
+            <Navbar/>
+        <div   className='container sm'>
+            <form className='w-50 m-auto mt-3 border-success rounded' onSubmit={handleSubmit} >
+                <div className=''>
+                <img className="mx-auto d-block " alt=" "src='./logo_hh.png' height={165} />
                 
                 
-                <div className="mb-3">
+                <div className="m-3">
                     <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
-                    <input type="email" className="form-control" name="email" value={credentials.email} onChange={onChange} id="exampleInputEmail1" aria-describedby="emailHelp" />
+                    <input type="email" style={{ backgroundColor: 'transparent' }} className="form-control" name="email" value={credentials.email} onChange={onChange} id="exampleInputEmail1" aria-describedby="emailHelp" />
                     <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
                 </div>
-                <div className="mb-3">
+                <div className="m-3">
                     <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
-                    <input type="password" className="form-control" name="password" value={credentials.password} onChange={onChange} id="exampleInputPassword1" />
+                    <input type="password" style={{ backgroundColor: 'transparent' }} className="form-control" name="password" value={credentials.password} onChange={onChange} id="exampleInputPassword1" />
                 </div>
                 
                 
                 <button type="submit" style={style} className="m-3 btn btn-primary">Submit</button>
                 <Link to='/signup' className='m-3' style={{color:"white"}}>Don't Have Account</Link>
+                </div>
             </form>
         </div>
-        </>
+        </div>
+        
   )
 }
 
