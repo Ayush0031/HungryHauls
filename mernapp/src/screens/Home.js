@@ -28,6 +28,7 @@ export default function Home() {
     backgroundColor: "#6e60dd"
 }
   return (
+    <div className="home-container">
     <div>
       <div>
         <Navbar />
@@ -61,7 +62,8 @@ export default function Home() {
   </button>
 </div>
       </div>
-      <div className="container">
+      <div className="container" style={{}}>
+     
         {/* Logic to display data in cards based on category #9 35m */}
         {foodCat !== []
           ? foodCat.map((data) => {
@@ -70,7 +72,7 @@ export default function Home() {
                 <div key={data._id} className="fs-3 fst-italic m-3 text-center col" style={style}>
                   {data.CategoryName}
                 </div>
-                <hr />
+                <hr id="hr-success" style={{ height: "4px", backgroundImage: "-webkit-linear-gradient(left,rgb(0, 255, 137),rgb(0, 0, 0))" }} />
                 {foodItem !== []
                   ? foodItem
                     .filter(
@@ -93,6 +95,7 @@ export default function Home() {
       <div>
         <Footer />
       </div>
+    </div>
     </div>
   );
 }
