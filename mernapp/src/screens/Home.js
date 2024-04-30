@@ -10,7 +10,7 @@ export default function Home() {
   const [foodItem, setFoodItem] = useState([]);
 
   const loadData = async () => {
-    let response = await fetch("http://localhost:5000/api/foodData", {
+    let response = await fetch("http://localhost:5000/api/auth/foodData", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -62,7 +62,7 @@ export default function Home() {
   </button>
 </div>
       </div>
-      <div className="container" style={{}}>
+      <div className="container" >
      
         {/* Logic to display data in cards based on category #9 35m */}
         {foodCat !== []

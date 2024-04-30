@@ -1,8 +1,14 @@
+global.foodData = require('./db')(function call(err, data, CatData) {
+  // console.log(data)
+  if(err) console.log(err);
+  global.foodData = data;
+  global.foodCategory = CatData;
+})
 const express = require('express')
 const app = express()
-const mongoDB=require('./db')
 const port = 5000
-mongoDB()
+
+
 app.use((req,res,next)=>{
   res.setHeader("Access-Control-Allow-Origin","http://localhost:3000");
   res.header("Access-Control-Allow-Headers",
@@ -15,9 +21,8 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-app.use('/api',require("./Routes/createUser"))
-app.use('/api',require("./Routes/displayData"))
-app.use('/api',require("./Routes/orderData"))
+app.use('/api/auth',require("./Routes/Auth"))
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
