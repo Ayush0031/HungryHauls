@@ -28,7 +28,7 @@ let [address, setAddress] = useState("");
     // console.log(latlong)
     let [lat, long] = latlong
     console.log(lat, long)
-    const response = await fetch("http://localhost:5000/api/getlocation", {
+    const response = await fetch("http://localhost:5000/api/auth/getlocation", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -41,9 +41,10 @@ let [address, setAddress] = useState("");
     setAddress(location);
     setCredentials({ ...credentials, [e.target.name]: location })
   }
+  
     const handleSubmit=async(e)=>{
         e.preventDefault();
-        const response=await fetch("http://localhost:5000/api/createuser",{
+        const response=await fetch("http://localhost:5000/api/auth/createuser",{
             method:'POST',
             headers:{
                 'Content-Type':'application/json'

@@ -1,5 +1,6 @@
 import React, { useState,useRef, useEffect } from 'react'
 import { useDispatch,useCart } from './ContextReducer';
+import {useNavigate} from 'react-router-dom';
 const Card = (props) => {
   let dispatch=useDispatch();
   let cartItems=useCart();
@@ -8,6 +9,12 @@ const Card = (props) => {
   const[qty,setQty]=useState(1);
   const[size,setSize]=useState("");
   const priceRef=useRef();
+  const navigate=useNavigate();
+  const handleClick = () => {
+    if (!localStorage.getItem("token")) {
+      navigate("/login")
+    }
+  }
   const handleAddToCart=async ()=>{
     let food = []
     for (const item of cartItems) {
@@ -65,7 +72,7 @@ const Card = (props) => {
               
               <select
                 className="m-2 h-100 rounded "
-                style={{ backgroundColor: "#6e60dd" }} ref={priceRef} onChange={(e)=>{setSize(e.target.value)}}
+                style={{ backgroundColor: "#6e60dd" }} ref={priceRef} onClick={handleClick} onChange={(e)=>{setSize(e.target.value)}}
               >
                 {
                   priceOptions.map((data)=>{
