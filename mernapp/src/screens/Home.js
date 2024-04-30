@@ -8,7 +8,7 @@ export default function Home() {
   const[search,setSearch]=useState('');
   const [foodCat, setFoodCat] = useState([]);
   const [foodItem, setFoodItem] = useState([]);
-  const [isSliderVisible, setIsSliderVisible] = useState(true);
+  const [isSliderVisible, setIsSliderVisible] = useState(false);
   const toggleSliderVisibility = () => {
     setIsSliderVisible(!isSliderVisible);
   };
