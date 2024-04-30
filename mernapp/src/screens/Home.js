@@ -8,13 +8,17 @@ export default function Home() {
   const[search,setSearch]=useState('');
   const [foodCat, setFoodCat] = useState([]);
   const [foodItem, setFoodItem] = useState([]);
-
+  const [isSliderVisible, setIsSliderVisible] = useState(true);
+  const toggleSliderVisibility = () => {
+    setIsSliderVisible(!isSliderVisible);
+  };
 
   const [price, setPrice] = useState(100);
 
   const handleChange = (event) => {
     setPrice(event.target.value);
   }
+
   const loadData = async () => {
     let response = await fetch("http://localhost:5000/api/auth/foodData", {
       method: "POST",
@@ -70,9 +74,9 @@ export default function Home() {
   </button>
 </div>
       </div>
-      <div className="scrollable-container">
-      <div className="slider-container">
-        <h6 className="fst-italic text-dark text-center">Price filter</h6>
+      
+      <div className={`slider-container ${isSliderVisible ? 'visible' : 'hidden'}`}>
+      <div className="slider-content">
         <input
           type="range"
           min="100"
@@ -80,11 +84,14 @@ export default function Home() {
           value={price}
           onChange={handleChange}
           className="slider"
-          
         />
         <span id="price-display">₹{price}</span>
       </div>
+      
     </div>
+    <button className="toggle-btn slider-container-btn" onClick={toggleSliderVisibility}>
+        {isSliderVisible ? 'Price Filter' : 'Price Filter'}
+      </button>
       <div className="container" >
       
         {/* Logic to display data in cards based on category #9 35m */}
