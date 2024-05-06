@@ -112,8 +112,8 @@ export default function Home() {
                     )
                     .map((food) => {
                       return (
-                        <div key={food._id} className="col-12 col-md-6 col-lg-4">
-                          <Card data={food} options={food.options[0]}/>
+                        <div className="col-12 col-md-6 col-lg-4">
+                          <Card data={food} options={food.options[0]} key={food._id}/>
                         </div>
                       );
                     })
