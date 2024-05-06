@@ -3,17 +3,13 @@ const express = require('express')
 const dotenv=require('dotenv')
 dotenv.config()
 const app = express()
-const cors=require('cors')
 const port =process.env.PORT || 5000
 const mongoDB=require('./db')
-app.use(cors({
-    origin:["https://HungryHauls.vercel.app"],
-    method:["POST","GET"],
-    credentials:true
-}))
+const cors = require('cors');
+app.use(cors())
+
 
 mongoDB()
-
 
 app.use(express.json())
 app.get('/', (req, res) => {
