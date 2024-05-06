@@ -8,15 +8,26 @@ export default function Home() {
   const[search,setSearch]=useState('');
   const [foodCat, setFoodCat] = useState([]);
   const [foodItem, setFoodItem] = useState([]);
+  const [isSliderVisible, setIsSliderVisible] = useState(false);
+  const toggleSliderVisibility = () => {
+    setIsSliderVisible(!isSliderVisible);
+  };
+
+  const [price, setPrice] = useState(100);
+
+  const handleChange = (event) => {
+    setPrice(event.target.value);
+  }
 
   const loadData = async () => {
-    let response = await fetch("http://localhost:5000/api/foodData", {
+    let response = await fetch("http://localhost:5000/api/auth/foodData", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
     });
     response = await response.json();
+    console.log(response[1],response[0])
     setFoodItem(response[0]);
     setFoodCat(response[1]);
   };
@@ -38,7 +49,8 @@ export default function Home() {
   <div className="carousel-inner" id="carousel">
     <div className='carousel-caption' style={{"zIndex":"100"}}>
     <div className="d-flex justify-content-center">
-      <input className="form-control me-2" type="search" value={search} onChange={(e)=>{setSearch(e.target.value)}} placeholder="Search" aria-label="Search"/>
+    
+      <input className="form-control me-2 h-100" type="search" value={search} onChange={(e)=>{setSearch(e.target.value)}} placeholder="Search" aria-label="Search"/>
       {/* <button className="btn btn-outline-danger text-white" style={{ backgroundColor: "#6e60dd" }}type="submit">Search</button> */}
     </div>
     </div>
@@ -62,10 +74,28 @@ export default function Home() {
   </button>
 </div>
       </div>
-      <div className="container" style={{}}>
-     
+      
+      <div className={`slider-container ${isSliderVisible ? 'visible' : 'hidden'}`}>
+      <div className="slider-content">
+        <input
+          type="range"
+          min="100"
+          max="1000"
+          value={price}
+          onChange={handleChange}
+          className="slider"
+        />
+        <span id="price-display">₹{price}</span>
+      </div>
+      
+    </div>
+    <button className="toggle-btn slider-container-btn" onClick={toggleSliderVisibility}>
+        {isSliderVisible ? 'Price Filter' : 'Price Filter'}
+      </button>
+      <div className="container" >
+      
         {/* Logic to display data in cards based on category #9 35m */}
-        {foodCat !== []
+        {foodCat !==[]
           ? foodCat.map((data) => {
             return (
               <div className="row mb-3">
@@ -73,16 +103,17 @@ export default function Home() {
                   {data.CategoryName}
                 </div>
                 <hr id="hr-success" style={{ height: "4px", backgroundImage: "-webkit-linear-gradient(left,rgb(0, 255, 137),rgb(0, 0, 0))" }} />
-                {foodItem !== []
+                {foodItem !==[]
                   ? foodItem
                     .filter(
                       (item) => (item.CategoryName === data.CategoryName) 
+                      &&(item.options[0].half<=price||item.options[0].regular<=price)
                       &&(item.name.toLowerCase().includes(search.toLocaleLowerCase()))
                     )
                     .map((food) => {
                       return (
-                        <div key={food._id} className="col-12 col-md-6 col-lg-4">
-                          <Card data={food} options={food.options[0]}/>
+                        <div className="col-12 col-md-6 col-lg-4">
+                          <Card data={food} options={food.options[0]} key={food._id}/>
                         </div>
                       );
                     })
