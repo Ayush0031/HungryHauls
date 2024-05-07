@@ -6,7 +6,7 @@ const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs')
 var jwt = require('jsonwebtoken');
 const axios = require('axios')
-const fetch = require('../middleware/fetchdetails');
+const fetch = require('../middleware/fetchDetails.js');
 const jwtSecret = process.env.JWTSECRET;
 
 router.post('/createuser', [
