@@ -61,7 +61,7 @@ export default function Navbar() {
             
             <Badge pill bg="danger"><PiShoppingCartLight />{data.length}</Badge>
             </div>
-            {cartView?<Modal onClose={()=>setCartView(false)}><Cart></Cart></Modal>:""}
+            {cartView?<Modal  onClose={()=>setCartView(false)}><Cart></Cart></Modal>:""}
           <div className='btn mx-2 fs-5' onClick={handleLogout}> Logout <RiLogoutCircleRFill /></div>
           </div>
         }

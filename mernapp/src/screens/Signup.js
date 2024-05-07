@@ -25,9 +25,9 @@ let [address, setAddress] = useState("");
       let longitude = res.coords.longitude;
       return [latitude, longitude]
     })
-    // console.log(latlong)
+  
     let [lat, long] = latlong
-    console.log(lat, long)
+    
     const response = await fetch("http://localhost:5000/api/auth/getlocation", {
       method: 'POST',
       headers: {
@@ -37,7 +37,7 @@ let [address, setAddress] = useState("");
 
     });
     const { location } = await response.json()
-    console.log(location);
+    
     setAddress(location);
     setCredentials({ ...credentials, [e.target.name]: location })
   }
@@ -52,7 +52,7 @@ let [address, setAddress] = useState("");
             body:JSON.stringify({name:credentials.name,email:credentials.email,password:credentials.password,location:credentials.geolocation})
         })
         const json= await response.json();
-        console.log(json);
+      
         if(!json.success){
             alert("Please enter valid Credentials")
         }

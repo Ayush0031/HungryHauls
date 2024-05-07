@@ -13,7 +13,7 @@ export default function Home() {
     setIsSliderVisible(!isSliderVisible);
   };
 
-  const [price, setPrice] = useState(100);
+  const [price, setPrice] = useState(200);
 
   const handleChange = (event) => {
     setPrice(event.target.value);
@@ -27,7 +27,7 @@ export default function Home() {
       },
     });
     response = await response.json();
-    console.log(response[1],response[0])
+  
     setFoodItem(response[0]);
     setFoodCat(response[1]);
   };

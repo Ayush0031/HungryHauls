@@ -7,7 +7,7 @@ const bcrypt = require('bcryptjs')
 var jwt = require('jsonwebtoken');
 const axios = require('axios')
 const fetch = require('../middleware/fetchdetails');
-const jwtSecret = "47ac000103ddb2ff40b9ad50775c8cc319e4142c961a8be64098cd340302f1dce384c053bb6328034cad9e35ab0980ed4731d3a9741f591df588a302103c8b10"
+const jwtSecret = process.env.JWTSECRET;
 
 router.post('/createuser', [
     body('email').isEmail(),
@@ -19,8 +19,7 @@ router.post('/createuser', [
     if (!errors.isEmpty()) {
         return res.status(400).json({ success, errors: errors.array() })
     }
-    // console.log(req.body)
-    // let user = await User.findOne({email:req.body.email})
+   
     const salt = await bcrypt.genSalt(10)
     let securePass = await bcrypt.hash(req.body.password, salt);
     try {
@@ -104,16 +103,13 @@ router.post('/getlocation', async (req, res) => {
     try {
         let lat = req.body.latlong.lat
         let long = req.body.latlong.long
-        console.log(lat, long)
+        
         let location = await axios
             .get("https://api.opencagedata.com/geocode/v1/json?q=" + lat + "+" + long + "&key=74c89b3be64946ac96d777d08b878d43")
             .then(async res => {
-                // console.log(`statusCode: ${res.status}`)
-                console.log(res.data.results)
-                // let response = stringify(res)
-                // response = await JSON.parse(response)
+                
                 let response = res.data.results[0].components;
-                console.log(response)
+              
                 let { village, county, state_district, state, postcode } = response
                 return String(village + "," + county + "," + state_district + "," + state + "\n" + postcode)
             })
@@ -130,9 +126,7 @@ router.post('/getlocation', async (req, res) => {
 })
 router.post('/foodData', async (req, res) => {
     try {
-        // console.log( JSON.stringify(global.foodData))
-        // const userId = req.user.id;
-        // await database.listCollections({name:"food_items"}).find({});
+        
         res.send([global.food_items, global.food_category])
     } catch (error) {
         console.error(error.message)
@@ -144,15 +138,14 @@ router.post('/foodData', async (req, res) => {
 router.post('/orderData', async (req, res) => {
     let data = req.body.order_data
     await data.splice(0,0,{Order_date:req.body.order_date})
-    console.log("1231242343242354",req.body.email)
+    
 
     //if email not exisitng in db then create: else: InsertMany()
     let eId = await Order.findOne({ 'email': req.body.email })    
-    console.log(eId)
+   
     if (eId===null) {
         try {
-            console.log(data)
-            console.log("1231242343242354",req.body.email)
+         
             await Order.create({
                 email: req.body.email,
                 order_data:[data]
@@ -183,7 +176,7 @@ router.post('/myOrderData', async (req, res) => {
     try {
         console.log(req.body.email)
         let eId = await Order.findOne({ 'email': req.body.email })
-        //console.log(eId)
+       
         res.json({orderData:eId})
     } catch (error) {
         res.send("Error",error.message)

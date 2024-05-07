@@ -12,16 +12,15 @@ export default function Cart() {
     )
   }
   const handleRemove = (index)=>{
-    console.log(index)
+   
     dispatch({type:"REMOVE",index:index})
   }
 
   const handleCheckOut = async () => {
     let userEmail = localStorage.getItem("userEmail");
-    // console.log(data,localStorage.getItem("userEmail"),new Date())
+  
     let response = await fetch("http://localhost:5000/api/auth/orderData", {
-      // credentials: 'include',
-      // Origin:"http://localhost:3000/login",
+      
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -32,7 +31,7 @@ export default function Cart() {
         order_date: new Date().toDateString()
       })
     });
-    console.log("JSON RESPONSE:::::", response.status)
+    
     if (response.status === 200) {
       dispatch({ type: "DROP" })
     }
@@ -42,9 +41,9 @@ export default function Cart() {
   return (
     <div>
 
-      {console.log(data)}
+      
       <div className='container m-auto mt-5 table-responsive  table-responsive-sm table-responsive-md' >
-        <table className='table table-hover '>
+        <table className='table  ' style={{backgroundColor:'white',color:'black'}}>
           <thead className=' text-success fs-4'>
             <tr>
               <th scope='col' >#</th>
@@ -63,11 +62,11 @@ export default function Cart() {
                 <td>{food.qty}</td>
                 <td>{food.size}</td>
                 <td>{food.price}</td>
-                <td ><button type="button" className="btn p-0"><Delete onClick={() => { dispatch({ type: "REMOVE", index: index }) }} /></button> </td></tr>
+                <td ><button type="button" style={{color:'black'}} className="btn p-0"><Delete onClick={() => { dispatch({ type: "REMOVE", index: index }) }} /></button> </td></tr>
             ))}
           </tbody>
         </table>
-        <div><h1 className='fs-2'>Total Price:₹{totalPrice}/-</h1></div>
+        <div><h1 className='fs-2' style={{color:'white'}}>Total Price:₹{totalPrice}/-</h1></div>
         <div>
           <button className='btn bg-success mt-5 ' onClick={handleCheckOut} > Check Out </button>
         </div>

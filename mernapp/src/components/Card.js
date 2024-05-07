@@ -24,8 +24,7 @@ const Card = (props) => {
         break;
       }
     }
-    console.log(food)
-    console.log(new Date())
+   
     if (food !== []) {
       if (food.size === size) {
         await dispatch({ type: "UPDATE", id: props.data._id, price: finalPrice, qty: qty })
@@ -40,7 +39,7 @@ const Card = (props) => {
     }
     
       await dispatch({type:"ADD",id:props.data._id,name:props.data.name,price:finalPrice,qty:qty,size:size})
-      console.log(cartItems);
+      
   }
   let finalPrice=qty*parseInt(options[size]);
   useEffect(()=>{
