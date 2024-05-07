@@ -8,7 +8,7 @@ export default function MyOrder() {
 
     const fetchMyOrder = async () => {
       
-        await fetch("http://localhost:5000/api/auth/myOrderData", {
+        await fetch("https://hungryhauls.onrender.com/api/auth/myOrderData", {
             // credentials: 'include',
             // Origin:"http://localhost:3000/login",
             method: 'POST',

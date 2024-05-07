@@ -28,7 +28,7 @@ let [address, setAddress] = useState("");
   
     let [lat, long] = latlong
     
-    const response = await fetch("http://localhost:5000/api/auth/getlocation", {
+    const response = await fetch("https://hungryhauls.onrender.com/api/auth/getlocation", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -44,7 +44,7 @@ let [address, setAddress] = useState("");
   
     const handleSubmit=async(e)=>{
         e.preventDefault();
-        const response=await fetch("http://localhost:5000/api/auth/createuser",{
+        const response=await fetch("https://hungryhauls.onrender.com/api/auth/createuser",{
             method:'POST',
             headers:{
                 'Content-Type':'application/json'
